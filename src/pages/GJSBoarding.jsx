@@ -12,7 +12,7 @@ const GJSBoarding = () => {
     const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
     link.type = 'image/png';
     link.rel = 'icon';
-    link.href = '/sisu-theme/assets/images/logo-light.png';
+    link.href = '/GombeBadge.png';
     document.getElementsByTagName('head')[0].appendChild(link);
 
     // Restore original favicon when component unmounts
@@ -408,7 +408,7 @@ const GJSBoarding = () => {
       <section className="relative overflow-hidden text-white py-32" style={{ backgroundColor: brandColors.secondary }}>
         <div className="absolute inset-0">
           <img 
-            src="/images/classexam.jpg" 
+            src="/classexam.jpg" 
             alt="Gombe Junior School - Boarding" 
             className="w-full h-full object-cover opacity-20"
           />
@@ -441,7 +441,7 @@ const GJSBoarding = () => {
               className="flex justify-center md:justify-end"
             >
               <img 
-                src="/images/Gombe Junior School logo.png" 
+                src="/Gombe Junior School logo.png" 
                 alt="Gombe Junior School" 
                 className="w-96 h-96 object-contain"
               />
@@ -640,7 +640,7 @@ const GJSBoarding = () => {
             <div>
               <div className="flex items-center mb-4">
                 <img 
-                  src="/images/Gombe Junior School logo.png" 
+                  src="/Gombe Junior School logo.png" 
                   alt="Gombe Junior School" 
                   className="h-40 w-auto mr-3 grayscale"
                 />
@@ -699,7 +699,7 @@ const GJSBoarding = () => {
               <div className="flex items-center space-x-2">
                 <span className="text-gray-300 text-sm">Powered by</span>
                 <img 
-                  src="/images/Inzozi-grayscale.png" 
+                  src="/Inzozi-grayscale.png" 
                   alt="Inzozi Logo" 
                   className="h-16 w-auto brightness-0 invert" 
                 />
