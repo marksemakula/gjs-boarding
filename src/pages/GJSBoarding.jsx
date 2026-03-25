@@ -6,6 +6,9 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube } from 're
 const GJSBoarding = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
+  const [isAcademicsDropdownOpen, setIsAcademicsDropdownOpen] = useState(false);
+  const [isAdmissionsDropdownOpen, setIsAdmissionsDropdownOpen] = useState(false);
+  const [isStudentsLifeDropdownOpen, setIsStudentsLifeDropdownOpen] = useState(false);
 
   useEffect(() => {
     // Change favicon when component mounts
@@ -263,10 +266,10 @@ const GJSBoarding = () => {
             </motion.div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-6">
+            <nav className="hidden lg:flex items-center space-x-1">
               <motion.a 
                 href="#home" 
-                className="relative text-gray-700 hover:text-[#800E13] font-medium transition-all duration-300 group"
+                className="relative text-gray-700 hover:text-[#800E13] font-medium transition-all duration-300 group px-3 py-2"
                 whileHover={{ y: -2 }}
               >
                 Home
@@ -280,69 +283,120 @@ const GJSBoarding = () => {
                 onMouseLeave={() => setIsAboutDropdownOpen(false)}
               >
                 <motion.button 
-                  className="flex items-center text-gray-700 hover:text-[#800E13] font-medium transition-colors group"
+                  className="flex items-center text-gray-700 hover:text-[#800E13] font-medium transition-colors px-3 py-2"
                   whileHover={{ y: -2 }}
                 >
                   About Us
                   <LuChevronDown className={`ml-1 w-4 h-4 transition-transform ${isAboutDropdownOpen ? 'rotate-180' : ''}`} />
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FFD700] group-hover:w-full transition-all duration-300"></span>
                 </motion.button>
                 {isAboutDropdownOpen && (
-                  <motion.div 
-                    className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-2xl py-3 border-2 border-[#FFD700] z-[100]"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <a href="#management" className="block px-4 py-3 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">
-                      School Management Committee
-                    </a>
-                    <a href="#mission" className="block px-4 py-3 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">
-                      Mission & Vision
-                    </a>
-                    <a href="#facilities" className="block px-4 py-3 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">
-                      Our Facilities
-                    </a>
-                  </motion.div>
+                  <div className="absolute top-full left-0 pt-2 z-[100]">
+                    <motion.div 
+                      className="w-64 bg-white rounded-xl shadow-2xl py-3 border-2 border-[#FFD700]"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <a href="#school-profile" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">School Profile</a>
+                      <a href="#mission" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Mission &amp; Vision</a>
+                      <a href="#core-values" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Core Values</a>
+                      <a href="#board-of-governors" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Board of Governors</a>
+                      <a href="#principals-message" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Principal's Message</a>
+                      <a href="#management" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Administration &amp; Management Team</a>
+                    </motion.div>
+                  </div>
                 )}
               </div>
 
-              <motion.a 
-                href="#blog" 
-                className="relative text-gray-700 hover:text-[#800E13] font-medium transition-all duration-300 group"
-                whileHover={{ y: -2 }}
+              {/* Academics Dropdown */}
+              <div 
+                className="relative"
+                onMouseEnter={() => setIsAcademicsDropdownOpen(true)}
+                onMouseLeave={() => setIsAcademicsDropdownOpen(false)}
               >
-                Blog
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FFD700] group-hover:w-full transition-all duration-300"></span>
-              </motion.a>
+                <motion.button 
+                  className="flex items-center text-gray-700 hover:text-[#800E13] font-medium transition-colors px-3 py-2"
+                  whileHover={{ y: -2 }}
+                >
+                  Academics
+                  <LuChevronDown className={`ml-1 w-4 h-4 transition-transform ${isAcademicsDropdownOpen ? 'rotate-180' : ''}`} />
+                </motion.button>
+                {isAcademicsDropdownOpen && (
+                  <div className="absolute top-full left-0 pt-2 z-[100]">
+                    <motion.div 
+                      className="w-64 bg-white rounded-xl shadow-2xl py-3 border-2 border-[#FFD700]"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <a href="#academic-program" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Academic Program</a>
+                      <a href="#curriculum" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Curriculum – Subjects</a>
+                      <a href="#departments" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Departments</a>
+                      <a href="#uned-results" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">UNED Results – Archives</a>
+                    </motion.div>
+                  </div>
+                )}
+              </div>
 
-              <motion.a 
-                href="#gallery" 
-                className="relative text-gray-700 hover:text-[#800E13] font-medium transition-all duration-300 group"
-                whileHover={{ y: -2 }}
+              {/* Admissions Dropdown */}
+              <div 
+                className="relative"
+                onMouseEnter={() => setIsAdmissionsDropdownOpen(true)}
+                onMouseLeave={() => setIsAdmissionsDropdownOpen(false)}
               >
-                Gallery
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FFD700] group-hover:w-full transition-all duration-300"></span>
-              </motion.a>
+                <motion.button 
+                  className="flex items-center text-gray-700 hover:text-[#800E13] font-medium transition-colors px-3 py-2"
+                  whileHover={{ y: -2 }}
+                >
+                  Admissions
+                  <LuChevronDown className={`ml-1 w-4 h-4 transition-transform ${isAdmissionsDropdownOpen ? 'rotate-180' : ''}`} />
+                </motion.button>
+                {isAdmissionsDropdownOpen && (
+                  <div className="absolute top-full left-0 pt-2 z-[100]">
+                    <motion.div 
+                      className="w-56 bg-white rounded-xl shadow-2xl py-3 border-2 border-[#FFD700]"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <a href="#apply" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Apply Now</a>
+                      <a href="#fees" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Resources – Fees</a>
+                      <a href="#faqs" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">FAQs</a>
+                      <a href="#documents" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Documents</a>
+                      <a href="#overview" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Overview</a>
+                    </motion.div>
+                  </div>
+                )}
+              </div>
 
-              <motion.a 
-                href="#programs" 
-                className="relative text-gray-700 hover:text-[#800E13] font-medium transition-all duration-300 group"
-                whileHover={{ y: -2 }}
+              {/* Student's Life Dropdown */}
+              <div 
+                className="relative"
+                onMouseEnter={() => setIsStudentsLifeDropdownOpen(true)}
+                onMouseLeave={() => setIsStudentsLifeDropdownOpen(false)}
               >
-                Programs
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FFD700] group-hover:w-full transition-all duration-300"></span>
-              </motion.a>
-
-              <motion.a 
-                href="#contact" 
-                className="px-6 py-2 rounded-full font-bold text-white transition-all duration-300 shadow-lg hover:shadow-xl"
-                style={{ backgroundColor: brandColors.primary, color: brandColors.secondary }}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Contact
-              </motion.a>
+                <motion.button 
+                  className="flex items-center text-gray-700 hover:text-[#800E13] font-medium transition-colors px-3 py-2"
+                  whileHover={{ y: -2 }}
+                >
+                  Student's Life
+                  <LuChevronDown className={`ml-1 w-4 h-4 transition-transform ${isStudentsLifeDropdownOpen ? 'rotate-180' : ''}`} />
+                </motion.button>
+                {isStudentsLifeDropdownOpen && (
+                  <div className="absolute top-full left-0 pt-2 z-[100]">
+                    <motion.div 
+                      className="w-56 bg-white rounded-xl shadow-2xl py-3 border-2 border-[#FFD700]"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <a href="#articles" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Articles</a>
+                      <a href="#gallery" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Images</a>
+                      <a href="#clubs" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Student Clubs &amp; Societies</a>
+                    </motion.div>
+                  </div>
+                )}
+              </div>
             </nav>
 
             {/* Mobile Menu Button */}
@@ -365,7 +419,9 @@ const GJSBoarding = () => {
               <a href="#home" className="block py-3 px-4 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] font-medium rounded-lg transition-colors">
                 Home
               </a>
-              <div className="py-2">
+
+              {/* About Us */}
+              <div className="py-1">
                 <button 
                   onClick={() => setIsAboutDropdownOpen(!isAboutDropdownOpen)}
                   className="flex items-center justify-between w-full py-3 px-4 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] font-medium rounded-lg transition-colors"
@@ -374,31 +430,73 @@ const GJSBoarding = () => {
                   <LuChevronDown className={`w-4 h-4 transition-transform ${isAboutDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {isAboutDropdownOpen && (
-                  <div className="mt-2 ml-4 space-y-1">
-                    <a href="#management" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">
-                      School Management Committee
-                    </a>
-                    <a href="#mission" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">
-                      Mission & Vision
-                    </a>
-                    <a href="#facilities" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">
-                      Our Facilities
-                    </a>
+                  <div className="mt-1 ml-4 space-y-1">
+                    <a href="#school-profile" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">School Profile</a>
+                    <a href="#mission" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Mission &amp; Vision</a>
+                    <a href="#core-values" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Core Values</a>
+                    <a href="#board-of-governors" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Board of Governors</a>
+                    <a href="#principals-message" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Principal's Message</a>
+                    <a href="#management" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Administration &amp; Management Team</a>
                   </div>
                 )}
               </div>
-              <a href="#blog" className="block py-3 px-4 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] font-medium rounded-lg transition-colors">
-                Blog
-              </a>
-              <a href="#gallery" className="block py-3 px-4 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] font-medium rounded-lg transition-colors">
-                Gallery
-              </a>
-              <a href="#programs" className="block py-3 px-4 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] font-medium rounded-lg transition-colors">
-                Programs
-              </a>
-              <a href="#contact" className="block py-3 px-4 mt-2 text-center rounded-full font-bold text-white" style={{ backgroundColor: brandColors.primary, color: brandColors.secondary }}>
-                Contact
-              </a>
+
+              {/* Academics */}
+              <div className="py-1">
+                <button 
+                  onClick={() => setIsAcademicsDropdownOpen(!isAcademicsDropdownOpen)}
+                  className="flex items-center justify-between w-full py-3 px-4 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] font-medium rounded-lg transition-colors"
+                >
+                  Academics
+                  <LuChevronDown className={`w-4 h-4 transition-transform ${isAcademicsDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {isAcademicsDropdownOpen && (
+                  <div className="mt-1 ml-4 space-y-1">
+                    <a href="#academic-program" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Academic Program</a>
+                    <a href="#curriculum" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Curriculum – Subjects</a>
+                    <a href="#departments" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Departments</a>
+                    <a href="#uned-results" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">UNED Results – Archives</a>
+                  </div>
+                )}
+              </div>
+
+              {/* Admissions */}
+              <div className="py-1">
+                <button 
+                  onClick={() => setIsAdmissionsDropdownOpen(!isAdmissionsDropdownOpen)}
+                  className="flex items-center justify-between w-full py-3 px-4 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] font-medium rounded-lg transition-colors"
+                >
+                  Admissions
+                  <LuChevronDown className={`w-4 h-4 transition-transform ${isAdmissionsDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {isAdmissionsDropdownOpen && (
+                  <div className="mt-1 ml-4 space-y-1">
+                    <a href="#apply" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Apply Now</a>
+                    <a href="#fees" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Resources – Fees</a>
+                    <a href="#faqs" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">FAQs</a>
+                    <a href="#documents" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Documents</a>
+                    <a href="#overview" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Overview</a>
+                  </div>
+                )}
+              </div>
+
+              {/* Student's Life */}
+              <div className="py-1">
+                <button 
+                  onClick={() => setIsStudentsLifeDropdownOpen(!isStudentsLifeDropdownOpen)}
+                  className="flex items-center justify-between w-full py-3 px-4 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] font-medium rounded-lg transition-colors"
+                >
+                  Student's Life
+                  <LuChevronDown className={`w-4 h-4 transition-transform ${isStudentsLifeDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {isStudentsLifeDropdownOpen && (
+                  <div className="mt-1 ml-4 space-y-1">
+                    <a href="#articles" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Articles</a>
+                    <a href="#gallery" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Images</a>
+                    <a href="#clubs" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Student Clubs &amp; Societies</a>
+                  </div>
+                )}
+              </div>
             </motion.div>
           )}
         </div>
@@ -636,7 +734,7 @@ const GJSBoarding = () => {
       {/* Custom Footer */}
       <footer className="bg-[#800E13] text-white py-2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center mb-4">
                 <img 
@@ -672,6 +770,28 @@ const GJSBoarding = () => {
                   <span className="text-gray-200">Boarding Campus, Gombe, Butambala District</span>
                 </div>
               </div>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4" style={{ color: brandColors.primary }}>Useful Links</h4>
+              <ul className="space-y-2">
+                {[
+                  { label: 'News', href: '#news' },
+                  { label: 'Events', href: '#events' },
+                  { label: 'Alumni', href: '#alumni' },
+                  { label: 'Facilities', href: '#facilities' },
+                  { label: 'Contact Us', href: '#contact' },
+                ].map((link) => (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      className="text-gray-200 hover:text-[#FFD700] transition-colors duration-300 flex items-center group"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#FFD700] mr-2 opacity-70 group-hover:opacity-100 transition-opacity"></span>
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
             <div>
               <h4 className="text-lg font-semibold mb-4" style={{ color: brandColors.primary }}>Follow Us</h4>
