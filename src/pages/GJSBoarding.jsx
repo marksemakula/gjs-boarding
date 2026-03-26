@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import Marquee from 'react-fast-marquee';
 import { LuMapPin, LuPhone, LuMail, LuUsers, LuAward, LuBookOpen, LuGlobe, LuExternalLink, LuTarget, LuMenu, LuX, LuChevronDown } from 'react-icons/lu';
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa';
 
@@ -546,6 +547,35 @@ const GJSBoarding = () => {
             </motion.div>
           </div>
         </div>
+      </section>
+
+      {/* Partners & Affiliates Logo Carousel */}
+      <section className="py-10" style={{ backgroundColor: '#FFF9F5' }}>
+        <Marquee speed={50} gradient gradientColor="#FFF9F5" gradientWidth={80} pauseOnHover>
+          {[...Array(4)].flatMap((_, setIdx) =>
+            [
+              { src: '/MoES1.png', alt: 'Ministry of Education and Sports' },
+              { src: '/GES.png', alt: 'GES' },
+              { src: '/Flag_of_Buganda.svg', alt: 'Kingdom of Buganda' },
+              { src: '/Gombe High logo.png', alt: 'Gombe High School' },
+              { src: '/IPP.png', alt: 'IPP' },
+              { src: '/Jimmy Ssekasi Business Institute Logo.png', alt: 'Jimmy Ssekasi Business Institute' },
+              { src: '/scooby-logo.png', alt: 'Scooby' },
+            ].map((logo, i) => (
+              <div
+                key={`${setIdx}-${i}`}
+                className="flex items-center justify-center mx-10"
+              >
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  className="h-14 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                  style={{ maxWidth: '140px' }}
+                />
+              </div>
+            ))
+          )}
+        </Marquee>
       </section>
 
       {/* Wavy Divider */}
