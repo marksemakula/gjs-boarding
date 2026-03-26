@@ -516,7 +516,7 @@ const GJSBoarding = () => {
       <section className="relative overflow-hidden text-white py-32" style={{ backgroundColor: brandColors.secondary }}>
         <div className="absolute inset-0">
           <img 
-            src="/classexam.jpg" 
+            src="/gjsIMG_1737.JPG" 
             alt="Gombe Junior School - Boarding" 
             className="w-full h-full object-cover opacity-20"
           />
