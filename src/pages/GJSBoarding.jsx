@@ -83,6 +83,15 @@ const GJSBoarding = () => {
         .float-reverse { animation: floatReverse 7s ease-in-out infinite; }
         .spin { animation: spin 20s linear infinite; }
         .spin-slow { animation: spinSlow 30s linear infinite; }
+        .logo-item img {
+          filter: grayscale(100%);
+          opacity: 0.7;
+          transition: filter 0.3s ease, opacity 0.3s ease;
+        }
+        .logo-item:hover img {
+          filter: grayscale(0%);
+          opacity: 1;
+        }
       `}</style>
 
       {/* Global Floating Elements */}
@@ -564,12 +573,12 @@ const GJSBoarding = () => {
             ].map((logo, i) => (
               <div
                 key={`${setIdx}-${i}`}
-                className="flex items-center justify-center mx-10"
+                className="logo-item flex items-center justify-center mx-10"
               >
                 <img
                   src={logo.src}
                   alt={logo.alt}
-                  className="h-14 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                  className="h-14 w-auto object-contain"
                   style={{ maxWidth: '140px' }}
                 />
               </div>
