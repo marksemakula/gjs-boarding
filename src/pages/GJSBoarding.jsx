@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Marquee from 'react-fast-marquee';
 import { LuMapPin, LuPhone, LuMail, LuUsers, LuAward, LuBookOpen, LuGlobe, LuExternalLink, LuTarget, LuMenu, LuX, LuChevronDown } from 'react-icons/lu';
@@ -435,7 +436,7 @@ const GJSBoarding = () => {
                       transition={{ duration: 0.2 }}
                     >
                       <a href="#articles" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Articles</a>
-                      <a href="#gallery" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Images</a>
+                      <Link to="/gallery" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Images</Link>
                       <a href="#clubs" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Student Clubs &amp; Societies</a>
                     </motion.div>
                   </div>
@@ -536,7 +537,7 @@ const GJSBoarding = () => {
                 {isStudentsLifeDropdownOpen && (
                   <div className="mt-1 ml-4 space-y-1">
                     <a href="#articles" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Articles</a>
-                    <a href="#gallery" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Images</a>
+                    <Link to="/gallery" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Images</Link>
                     <a href="#clubs" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Student Clubs &amp; Societies</a>
                   </div>
                 )}
