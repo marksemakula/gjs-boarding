@@ -4,12 +4,46 @@ import Marquee from 'react-fast-marquee';
 import { LuMapPin, LuPhone, LuMail, LuUsers, LuAward, LuBookOpen, LuGlobe, LuExternalLink, LuTarget, LuMenu, LuX, LuChevronDown } from 'react-icons/lu';
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa';
 
+const heroImages = [
+  '/GJS Pics/GOMBE HIGH SCHOOL.jpg',
+  '/GJS Pics/GOMBE JUNIOR SCHOOL BOARDING.JPG',
+  '/GJS Pics/IMG_0069.JPG',
+  '/GJS Pics/IMG_1378.JPG',
+  '/GJS Pics/IMG_1678.JPG',
+  '/GJS Pics/IMG_1685.JPG',
+  '/GJS Pics/IMG_1690.JPG',
+  '/GJS Pics/IMG_1697.JPG',
+  '/GJS Pics/IMG_1707.JPG',
+  '/GJS Pics/IMG_1708.JPG',
+  '/GJS Pics/IMG_1737.JPG',
+  '/GJS Pics/IMG_1747.JPG',
+  '/GJS Pics/IMG_1764.JPG',
+  '/GJS Pics/IMG_1768.JPG',
+  '/GJS Pics/IMG_2804.JPG',
+  '/GJS Pics/IMG_5387.JPG',
+  '/GJS Pics/IMG_7534.JPG',
+  '/GJS Pics/IMG_7541.JPG',
+  '/GJS Pics/IMG_7542.JPG',
+  '/GJS Pics/IMG_7544.JPG',
+  '/GJS Pics/IMG_8873.JPG',
+  '/GJS Pics/IMG_8893.JPG',
+  '/GJS Pics/IMG_8912.JPG',
+];
+
 const GJSBoarding = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
   const [isAcademicsDropdownOpen, setIsAcademicsDropdownOpen] = useState(false);
   const [isAdmissionsDropdownOpen, setIsAdmissionsDropdownOpen] = useState(false);
   const [isStudentsLifeDropdownOpen, setIsStudentsLifeDropdownOpen] = useState(false);
+  const [heroImageIndex, setHeroImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHeroImageIndex(prev => (prev + 1) % heroImages.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     // Change favicon when component mounts
@@ -515,11 +549,15 @@ const GJSBoarding = () => {
       {/* Hero Section */}
       <section className="relative overflow-hidden text-white py-32" style={{ backgroundColor: brandColors.secondary }}>
         <div className="absolute inset-0">
-          <img 
-            src="/gjsIMG_1737.JPG" 
-            alt="Gombe Junior School - Boarding" 
-            className="w-full h-full object-cover opacity-20"
-          />
+          {heroImages.map((src, idx) => (
+            <img
+              key={src}
+              src={src}
+              alt="Gombe Junior School - Boarding"
+              className="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000"
+              style={{ opacity: idx === heroImageIndex ? 0.2 : 0 }}
+            />
+          ))}
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
