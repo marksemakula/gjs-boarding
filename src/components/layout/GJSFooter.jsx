@@ -11,14 +11,14 @@ const brandColors = {
 
 const campuses = [
   { name: 'Gombe Junior School (Boarding)', contact: '+256 700 000 004', path: '/institutions/gjs-boarding' },
-  { name: 'Gombe Junior School Kikajjo (Day)', contact: '+256 700 000 006', path: '/institutions/gjs-kikajjo' },
+
 ];
 
 const GJSFooter = () => {
   return (
     <footer className="bg-gray-800 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Brand */}
           <div className="space-y-3">
             <div className="flex items-center gap-3">
@@ -82,6 +82,29 @@ const GJSFooter = () => {
             </ul>
           </div>
 
+          {/* Useful Links */}
+          <div className="space-y-3">
+            <h3 className="text-base font-semibold" style={{ color: brandColors.primary }}>Useful Links</h3>
+            <ul className="space-y-2">
+              {[
+                { label: 'News', href: '/news' },
+                { label: 'Events', href: '/events' },
+                { label: 'Alumni', href: '/alumni' },
+                { label: 'Facilities', href: '/facilities' },
+                { label: 'Contact Us', href: '/contact' },
+              ].map((link) => (
+                <li key={link.href}>
+                  <Link
+                    to={link.href}
+                    className="text-gray-300 hover:text-[#FFD700] transition-colors duration-300 text-sm block"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {/* Contact */}
           <div className="space-y-3">
             <h3 className="text-base font-semibold" style={{ color: brandColors.primary }}>Contact Us</h3>
@@ -93,8 +116,8 @@ const GJSFooter = () => {
               <div className="flex items-start gap-2">
                 <LuPhone className="w-4 h-4 mt-0.5" style={{ color: brandColors.primary }} />
                 <div>
-                  <p>+256 700 000 004 (Kikajjo)</p>
-                  <p>+256 700 000 005 (Gulu)</p>
+                  <p>+256 700 000 004 (Boarding)</p>
+                  <p>+256 700 000 005 (Boarding)</p>
                   <p>+256 700 000 006 (Boarding)</p>
                 </div>
               </div>

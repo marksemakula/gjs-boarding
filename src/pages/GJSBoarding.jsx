@@ -1,48 +1,97 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import Marquee from 'react-fast-marquee';
+import { motion } from 'framer-motion';
 import { LuMapPin, LuPhone, LuMail, LuUsers, LuAward, LuBookOpen, LuGlobe, LuExternalLink, LuTarget, LuMenu, LuX, LuChevronDown } from 'react-icons/lu';
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa';
 
-const heroImages = [
-  '/GJS Pics/GOMBE HIGH SCHOOL.jpg',
-  '/GJS Pics/GOMBE JUNIOR SCHOOL BOARDING.JPG',
-  '/GJS Pics/IMG_0069.JPG',
-  '/GJS Pics/IMG_1378.JPG',
-  '/GJS Pics/IMG_1678.JPG',
-  '/GJS Pics/IMG_1685.JPG',
-  '/GJS Pics/IMG_1690.JPG',
-  '/GJS Pics/IMG_1697.JPG',
-  '/GJS Pics/IMG_1707.JPG',
-  '/GJS Pics/IMG_1708.JPG',
-  '/GJS Pics/IMG_1737.JPG',
-  '/GJS Pics/IMG_1747.JPG',
-  '/GJS Pics/IMG_1764.JPG',
-  '/GJS Pics/IMG_1768.JPG',
-  '/GJS Pics/IMG_2804.JPG',
-  '/GJS Pics/IMG_5387.JPG',
-  '/GJS Pics/IMG_7534.JPG',
-  '/GJS Pics/IMG_7541.JPG',
-  '/GJS Pics/IMG_7542.JPG',
-  '/GJS Pics/IMG_7544.JPG',
-  '/GJS Pics/IMG_8873.JPG',
-  '/GJS Pics/IMG_8893.JPG',
-  '/GJS Pics/IMG_8912.JPG',
+const gjsPics = [
+  '/GJS%20Pics/GOMBE%20HIGH%20SCHOOL.jpg',
+  '/GJS%20Pics/GOMBE%20JUNIOR%20SCHOOL%20BOARDING.JPG',
+  '/GJS%20Pics/IMG_0069.JPG',
+  '/GJS%20Pics/IMG_1378.JPG',
+  '/GJS%20Pics/IMG_1678.JPG',
+  '/GJS%20Pics/IMG_1685.JPG',
+  '/GJS%20Pics/IMG_1690.JPG',
+  '/GJS%20Pics/IMG_1697.JPG',
+  '/GJS%20Pics/IMG_1707.JPG',
+  '/GJS%20Pics/IMG_1708.JPG',
+  '/GJS%20Pics/IMG_1737.JPG',
+  '/GJS%20Pics/IMG_1747.JPG',
+  '/GJS%20Pics/IMG_1764.JPG',
+  '/GJS%20Pics/IMG_1768.JPG',
+  '/GJS%20Pics/IMG_2804.JPG',
+  '/GJS%20Pics/IMG_5387.JPG',
+  '/GJS%20Pics/IMG_7534.JPG',
+  '/GJS%20Pics/IMG_7541.JPG',
+  '/GJS%20Pics/IMG_7542.JPG',
+  '/GJS%20Pics/IMG_7544.JPG',
+  '/GJS%20Pics/IMG_8873.JPG',
+  '/GJS%20Pics/IMG_8893.JPG',
+  '/GJS%20Pics/IMG_8912.JPG',
 ];
 
 const GJSBoarding = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
-  const [isAcademicsDropdownOpen, setIsAcademicsDropdownOpen] = useState(false);
-  const [isAdmissionsDropdownOpen, setIsAdmissionsDropdownOpen] = useState(false);
-  const [isStudentsLifeDropdownOpen, setIsStudentsLifeDropdownOpen] = useState(false);
-  const [heroImageIndex, setHeroImageIndex] = useState(0);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const [mobileDropdown, setMobileDropdown] = useState(null);
+  const [heroImageIndex, setHeroImageIndex] = useState(() => Math.floor(Math.random() * gjsPics.length));
+  const [heroVisible, setHeroVisible] = useState(true);
+
+  const navItems = [
+    { label: 'Home', href: '#home' },
+    {
+      label: 'About Us',
+      dropdown: [
+        { label: 'School Profile', href: '#school-profile' },
+        { label: 'Mission & Vision', href: '#mission' },
+        { label: 'Core Values', href: '#core-values' },
+        { label: 'Board of Governors', href: '#board' },
+        { label: "Principal's Message", href: '#principals-message' },
+        { label: 'Administration and Management Team', href: '#management' },
+      ],
+    },
+    {
+      label: 'Academics',
+      dropdown: [
+        { label: 'Academic Program', href: '#academic-program' },
+        { label: 'Curriculum - Subjects', href: '#curriculum' },
+        { label: 'Departments', href: '#departments' },
+        { label: 'UNED Results - Archives', href: '#uned-results' },
+      ],
+    },
+    {
+      label: 'Admissions',
+      dropdown: [
+        { label: 'Apply Now', href: '#apply', route: '/admissions/apply' },
+        { label: 'Resources - Fees', href: '#fees', route: '/admissions/fees' },
+        { label: 'FAQs', href: '#faqs' },
+        { label: 'Documents', href: '#documents', route: '/admissions/documents' },
+        { label: 'Overview', href: '#admissions-overview' },
+      ],
+    },
+    {
+      label: "Student's Life",
+      dropdown: [
+        { label: 'Articles', href: '#articles' },
+        { label: 'Images', href: '#gallery', route: '/gallery' },
+        { label: 'Student Clubs and Societies', href: '#clubs' },
+      ],
+    },
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setHeroImageIndex(prev => (prev + 1) % heroImages.length);
-    }, 3000);
+      setHeroVisible(false);
+      setTimeout(() => {
+        setHeroImageIndex(prev => {
+          let next;
+          do { next = Math.floor(Math.random() * gjsPics.length); } while (next === prev);
+          return next;
+        });
+        setHeroVisible(true);
+      }, 500);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
@@ -51,7 +100,7 @@ const GJSBoarding = () => {
     const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
     link.type = 'image/png';
     link.rel = 'icon';
-    link.href = '/GombeBadge.png';
+    link.href = '/sisu-theme/assets/images/logo-light.png';
     document.getElementsByTagName('head')[0].appendChild(link);
 
     // Restore original favicon when component unmounts
@@ -64,12 +113,6 @@ const GJSBoarding = () => {
     secondary: '#800E13', // Burgundy
   };
 
-  const stats = [
-    { icon: LuUsers, label: 'Students', value: '350+' },
-    { icon: LuAward, label: 'Pass Rate', value: '98%' },
-    { icon: LuBookOpen, label: 'Curricula', value: '2' },
-    { icon: LuGlobe, label: 'Countries', value: '10+' },
-  ];
 
   const programs = [
     {
@@ -87,6 +130,17 @@ const GJSBoarding = () => {
       description: 'Uganda National Curriculum integrated with international standards for P1-P7',
       features: ['Primary (P1-P7)', 'Life Skills', 'Competency-Based'],
     }
+  ];
+
+  // Each logo slot: width 120px + mx-10 (40px each side) = 200px. 7 logos × 200 = 1400px per copy.
+  const carouselLogos = [
+    { src: '/MoES1.png', alt: 'MoES' },
+    { src: '/GES.png', alt: 'GES' },
+    { src: '/Flag_of_Buganda.svg', alt: 'Flag of Buganda' },
+    { src: '/Gombe High logo.png', alt: 'Gombe High' },
+    { src: '/IPP.png', alt: 'IPP' },
+    { src: '/Jimmy Ssekasi Business Institute Logo.png', alt: 'Jimmy Ssekasi Business Institute' },
+    { src: '/scooby-logo.png', alt: 'Scooby' },
   ];
 
   return (
@@ -118,15 +172,6 @@ const GJSBoarding = () => {
         .float-reverse { animation: floatReverse 7s ease-in-out infinite; }
         .spin { animation: spin 20s linear infinite; }
         .spin-slow { animation: spinSlow 30s linear infinite; }
-        .logo-item img {
-          filter: grayscale(100%);
-          opacity: 0.7;
-          transition: filter 0.3s ease, opacity 0.3s ease;
-        }
-        .logo-item:hover img {
-          filter: grayscale(0%);
-          opacity: 1;
-        }
       `}</style>
 
       {/* Global Floating Elements */}
@@ -312,136 +357,64 @@ const GJSBoarding = () => {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-1">
-              <motion.a 
-                href="#home" 
-                className="relative text-gray-700 hover:text-[#800E13] font-medium transition-all duration-300 group px-3 py-2"
-                whileHover={{ y: -2 }}
-              >
-                Home
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FFD700] group-hover:w-full transition-all duration-300"></span>
-              </motion.a>
-              
-              {/* About Us Dropdown */}
-              <div 
-                className="relative"
-                onMouseEnter={() => setIsAboutDropdownOpen(true)}
-                onMouseLeave={() => setIsAboutDropdownOpen(false)}
-              >
-                <motion.button 
-                  className="flex items-center text-gray-700 hover:text-[#800E13] font-medium transition-colors px-3 py-2"
-                  whileHover={{ y: -2 }}
-                >
-                  About Us
-                  <LuChevronDown className={`ml-1 w-4 h-4 transition-transform ${isAboutDropdownOpen ? 'rotate-180' : ''}`} />
-                </motion.button>
-                {isAboutDropdownOpen && (
-                  <div className="absolute top-full left-0 pt-2 z-[100]">
-                    <motion.div 
-                      className="w-64 bg-white rounded-xl shadow-2xl py-3 border-2 border-[#FFD700]"
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.2 }}
+              {navItems.map((item) =>
+                item.dropdown ? (
+                  <div
+                    key={item.label}
+                    className="relative"
+                    onMouseEnter={() => setActiveDropdown(item.label)}
+                    onMouseLeave={() => setActiveDropdown(null)}
+                  >
+                    <button
+                      className="flex items-center gap-1 px-3 py-2 text-gray-700 hover:text-[#800E13] font-medium transition-colors"
                     >
-                      <a href="#school-profile" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">School Profile</a>
-                      <a href="#mission" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Mission &amp; Vision</a>
-                      <a href="#core-values" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Core Values</a>
-                      <a href="#board-of-governors" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Board of Governors</a>
-                      <a href="#principals-message" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Principal's Message</a>
-                      <a href="#management" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Administration &amp; Management Team</a>
-                    </motion.div>
+                      {item.label}
+                      <LuChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === item.label ? 'rotate-180' : ''}`} />
+                    </button>
+                    {activeDropdown === item.label && (
+                      /* pt-2 creates a seamless hover bridge between button and panel */
+                      <div className="absolute top-full left-0 pt-2 min-w-[220px] z-[100]">
+                        <motion.div
+                          className="bg-white rounded-xl shadow-2xl py-3 border-2 border-[#FFD700]"
+                          initial={{ opacity: 0, y: -6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.15 }}
+                        >
+                          {item.dropdown.map((sub) =>
+                            sub.route ? (
+                              <Link
+                                key={sub.route}
+                                to={sub.route}
+                                className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2 text-sm"
+                              >
+                                {sub.label}
+                              </Link>
+                            ) : (
+                              <a
+                                key={sub.href}
+                                href={sub.href}
+                                className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2 text-sm"
+                              >
+                                {sub.label}
+                              </a>
+                            )
+                          )}
+                        </motion.div>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-
-              {/* Academics Dropdown */}
-              <div 
-                className="relative"
-                onMouseEnter={() => setIsAcademicsDropdownOpen(true)}
-                onMouseLeave={() => setIsAcademicsDropdownOpen(false)}
-              >
-                <motion.button 
-                  className="flex items-center text-gray-700 hover:text-[#800E13] font-medium transition-colors px-3 py-2"
-                  whileHover={{ y: -2 }}
-                >
-                  Academics
-                  <LuChevronDown className={`ml-1 w-4 h-4 transition-transform ${isAcademicsDropdownOpen ? 'rotate-180' : ''}`} />
-                </motion.button>
-                {isAcademicsDropdownOpen && (
-                  <div className="absolute top-full left-0 pt-2 z-[100]">
-                    <motion.div 
-                      className="w-64 bg-white rounded-xl shadow-2xl py-3 border-2 border-[#FFD700]"
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <a href="#academic-program" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Academic Program</a>
-                      <a href="#curriculum" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Curriculum – Subjects</a>
-                      <a href="#departments" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Departments</a>
-                      <a href="#uned-results" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">UNED Results – Archives</a>
-                    </motion.div>
-                  </div>
-                )}
-              </div>
-
-              {/* Admissions Dropdown */}
-              <div 
-                className="relative"
-                onMouseEnter={() => setIsAdmissionsDropdownOpen(true)}
-                onMouseLeave={() => setIsAdmissionsDropdownOpen(false)}
-              >
-                <motion.button 
-                  className="flex items-center text-gray-700 hover:text-[#800E13] font-medium transition-colors px-3 py-2"
-                  whileHover={{ y: -2 }}
-                >
-                  Admissions
-                  <LuChevronDown className={`ml-1 w-4 h-4 transition-transform ${isAdmissionsDropdownOpen ? 'rotate-180' : ''}`} />
-                </motion.button>
-                {isAdmissionsDropdownOpen && (
-                  <div className="absolute top-full left-0 pt-2 z-[100]">
-                    <motion.div 
-                      className="w-56 bg-white rounded-xl shadow-2xl py-3 border-2 border-[#FFD700]"
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <a href="#apply" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Apply Now</a>
-                      <a href="#fees" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Resources – Fees</a>
-                      <a href="#faqs" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">FAQs</a>
-                      <a href="#documents" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Documents</a>
-                      <a href="#overview" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Overview</a>
-                    </motion.div>
-                  </div>
-                )}
-              </div>
-
-              {/* Student's Life Dropdown */}
-              <div 
-                className="relative"
-                onMouseEnter={() => setIsStudentsLifeDropdownOpen(true)}
-                onMouseLeave={() => setIsStudentsLifeDropdownOpen(false)}
-              >
-                <motion.button 
-                  className="flex items-center text-gray-700 hover:text-[#800E13] font-medium transition-colors px-3 py-2"
-                  whileHover={{ y: -2 }}
-                >
-                  Student's Life
-                  <LuChevronDown className={`ml-1 w-4 h-4 transition-transform ${isStudentsLifeDropdownOpen ? 'rotate-180' : ''}`} />
-                </motion.button>
-                {isStudentsLifeDropdownOpen && (
-                  <div className="absolute top-full left-0 pt-2 z-[100]">
-                    <motion.div 
-                      className="w-56 bg-white rounded-xl shadow-2xl py-3 border-2 border-[#FFD700]"
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <a href="#articles" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Articles</a>
-                      <Link to="/gallery" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Images</Link>
-                      <a href="#clubs" className="block px-4 py-2.5 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] transition-colors rounded-lg mx-2">Student Clubs &amp; Societies</a>
-                    </motion.div>
-                  </div>
-                )}
-              </div>
+                ) : (
+                  <motion.a
+                    key={item.label}
+                    href={item.href}
+                    className="relative px-3 py-2 text-gray-700 hover:text-[#800E13] font-medium transition-all duration-300 group"
+                    whileHover={{ y: -2 }}
+                  >
+                    {item.label}
+                    <span className="absolute bottom-0 left-3 w-0 h-0.5 bg-[#FFD700] group-hover:w-[calc(100%-24px)] transition-all duration-300"></span>
+                  </motion.a>
+                )
+              )}
             </nav>
 
             {/* Mobile Menu Button */}
@@ -455,93 +428,59 @@ const GJSBoarding = () => {
 
           {/* Mobile Menu */}
           {isMenuOpen && (
-            <motion.div 
+            <motion.div
               className="lg:hidden py-4 border-t border-gray-100"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
             >
-              <a href="#home" className="block py-3 px-4 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] font-medium rounded-lg transition-colors">
-                Home
-              </a>
-
-              {/* About Us */}
-              <div className="py-1">
-                <button 
-                  onClick={() => setIsAboutDropdownOpen(!isAboutDropdownOpen)}
-                  className="flex items-center justify-between w-full py-3 px-4 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] font-medium rounded-lg transition-colors"
-                >
-                  About Us
-                  <LuChevronDown className={`w-4 h-4 transition-transform ${isAboutDropdownOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {isAboutDropdownOpen && (
-                  <div className="mt-1 ml-4 space-y-1">
-                    <a href="#school-profile" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">School Profile</a>
-                    <a href="#mission" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Mission &amp; Vision</a>
-                    <a href="#core-values" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Core Values</a>
-                    <a href="#board-of-governors" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Board of Governors</a>
-                    <a href="#principals-message" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Principal's Message</a>
-                    <a href="#management" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Administration &amp; Management Team</a>
+              {navItems.map((item) =>
+                item.dropdown ? (
+                  <div key={item.label} className="py-1">
+                    <button
+                      onClick={() => setMobileDropdown(mobileDropdown === item.label ? null : item.label)}
+                      className="flex items-center justify-between w-full py-3 px-4 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] font-medium rounded-lg transition-colors"
+                    >
+                      {item.label}
+                      <LuChevronDown className={`w-4 h-4 transition-transform ${mobileDropdown === item.label ? 'rotate-180' : ''}`} />
+                    </button>
+                    {mobileDropdown === item.label && (
+                      <div className="ml-4 space-y-1">
+                        {item.dropdown.map((sub) =>
+                          sub.route ? (
+                            <Link
+                              key={sub.route}
+                              to={sub.route}
+                              onClick={() => setIsMenuOpen(false)}
+                              className="block py-2 px-4 text-sm text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6] transition-colors"
+                            >
+                              {sub.label}
+                            </Link>
+                          ) : (
+                            <a
+                              key={sub.href}
+                              href={sub.href}
+                              onClick={() => setIsMenuOpen(false)}
+                              className="block py-2 px-4 text-sm text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6] transition-colors"
+                            >
+                              {sub.label}
+                            </a>
+                          )
+                        )}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-
-              {/* Academics */}
-              <div className="py-1">
-                <button 
-                  onClick={() => setIsAcademicsDropdownOpen(!isAcademicsDropdownOpen)}
-                  className="flex items-center justify-between w-full py-3 px-4 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] font-medium rounded-lg transition-colors"
-                >
-                  Academics
-                  <LuChevronDown className={`w-4 h-4 transition-transform ${isAcademicsDropdownOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {isAcademicsDropdownOpen && (
-                  <div className="mt-1 ml-4 space-y-1">
-                    <a href="#academic-program" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Academic Program</a>
-                    <a href="#curriculum" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Curriculum – Subjects</a>
-                    <a href="#departments" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Departments</a>
-                    <a href="#uned-results" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">UNED Results – Archives</a>
-                  </div>
-                )}
-              </div>
-
-              {/* Admissions */}
-              <div className="py-1">
-                <button 
-                  onClick={() => setIsAdmissionsDropdownOpen(!isAdmissionsDropdownOpen)}
-                  className="flex items-center justify-between w-full py-3 px-4 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] font-medium rounded-lg transition-colors"
-                >
-                  Admissions
-                  <LuChevronDown className={`w-4 h-4 transition-transform ${isAdmissionsDropdownOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {isAdmissionsDropdownOpen && (
-                  <div className="mt-1 ml-4 space-y-1">
-                    <a href="#apply" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Apply Now</a>
-                    <a href="#fees" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Resources – Fees</a>
-                    <a href="#faqs" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">FAQs</a>
-                    <a href="#documents" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Documents</a>
-                    <a href="#overview" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Overview</a>
-                  </div>
-                )}
-              </div>
-
-              {/* Student's Life */}
-              <div className="py-1">
-                <button 
-                  onClick={() => setIsStudentsLifeDropdownOpen(!isStudentsLifeDropdownOpen)}
-                  className="flex items-center justify-between w-full py-3 px-4 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] font-medium rounded-lg transition-colors"
-                >
-                  Student's Life
-                  <LuChevronDown className={`w-4 h-4 transition-transform ${isStudentsLifeDropdownOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {isStudentsLifeDropdownOpen && (
-                  <div className="mt-1 ml-4 space-y-1">
-                    <a href="#articles" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Articles</a>
-                    <Link to="/gallery" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Images</Link>
-                    <a href="#clubs" className="block py-2 px-4 text-gray-600 hover:text-[#800E13] rounded-lg hover:bg-[#FFF9E6]">Student Clubs &amp; Societies</a>
-                  </div>
-                )}
-              </div>
+                ) : (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block py-3 px-4 text-gray-700 hover:bg-[#FFF9E6] hover:text-[#800E13] font-medium rounded-lg transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                )
+              )}
             </motion.div>
           )}
         </div>
@@ -550,15 +489,12 @@ const GJSBoarding = () => {
       {/* Hero Section */}
       <section className="relative overflow-hidden text-white py-32" style={{ backgroundColor: brandColors.secondary }}>
         <div className="absolute inset-0">
-          {heroImages.map((src, idx) => (
-            <img
-              key={src}
-              src={src}
-              alt="Gombe Junior School - Boarding"
-              className="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000"
-              style={{ opacity: idx === heroImageIndex ? 0.2 : 0 }}
-            />
-          ))}
+          <img
+            src={gjsPics[heroImageIndex]}
+            alt="Gombe Junior School - Boarding"
+            className="w-full h-full object-cover transition-opacity duration-500"
+            style={{ opacity: heroVisible ? 0.2 : 0 }}
+          />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -597,44 +533,37 @@ const GJSBoarding = () => {
         </div>
       </section>
 
-      {/* Partners & Affiliates Logo Carousel */}
-      <section className="py-10" style={{ backgroundColor: '#FFF9F5' }}>
-        <Marquee speed={50} gradient gradientColor="#FFF9F5" gradientWidth={80} pauseOnHover>
-          {[...Array(4)].flatMap((_, setIdx) =>
-            [
-              { src: '/MoES1.png', alt: 'Ministry of Education and Sports' },
-              { src: '/GES.png', alt: 'GES' },
-              { src: '/Flag_of_Buganda.svg', alt: 'Kingdom of Buganda' },
-              { src: '/Gombe High logo.png', alt: 'Gombe High School' },
-              { src: '/IPP.png', alt: 'IPP' },
-              { src: '/Jimmy Ssekasi Business Institute Logo.png', alt: 'Jimmy Ssekasi Business Institute' },
-              { src: '/scooby-logo.png', alt: 'Scooby' },
-            ].map((logo, i) => (
+      {/* Logo Carousel */}
+      <div className="py-8" style={{ backgroundColor: '#FFF9F5' }}>
+        <Marquee
+          gradient
+          gradientColor="#FFF9F5"
+          gradientWidth={96}
+          speed={60}
+          pauseOnHover
+        >
+          {/* 4× repetition ensures content always fills the viewport before the library clones it */}
+          {[0, 1, 2, 3].flatMap((setIdx) =>
+            carouselLogos.map((logo, i) => (
               <div
                 key={`${setIdx}-${i}`}
-                className="logo-item flex items-center justify-center mx-10"
+                style={{ width: '120px', height: '80px', margin: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
                 <img
                   src={logo.src}
                   alt={logo.alt}
-                  className="h-14 w-auto object-contain"
-                  style={{ maxWidth: '140px' }}
+                  width={120}
+                  height={80}
+                  className="max-h-16 max-w-full object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
                 />
               </div>
             ))
           )}
         </Marquee>
-      </section>
-
-      {/* Wavy Divider */}
-      <div className="w-full" style={{ marginTop: '-1px', lineHeight: 0 }}>
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full" style={{ height: '100px', display: 'block' }}>
-          <path d="M0,0 C300,90 600,90 900,0 C1050,50 1150,50 1200,0 L1200,120 L0,120 Z" fill="#FFF9F5"></path>
-        </svg>
       </div>
 
-      {/* Stats Section */}
-      <section className="py-20" style={{ backgroundColor: '#FFF9F5' }}>
+      {/* Campus Media Section */}
+      <section className="py-20 relative overflow-hidden" style={{ backgroundColor: '#FFF9F5' }}>
         {/* Decorative Elements */}
         <div className="absolute top-10 left-10 opacity-10 z-0">
           <svg width="80" height="80" viewBox="0 0 100 100">
@@ -650,38 +579,57 @@ const GJSBoarding = () => {
         </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="text-center"
-              >
-                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-4" style={{ backgroundColor: '#fff', boxShadow: '0 10px 30px rgba(128,14,19,0.1)' }}>
-                  <stat.icon className="w-10 h-10" style={{ color: brandColors.primary }} />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Image Column */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative rounded-3xl overflow-hidden shadow-2xl group"
+              style={{ border: `4px solid ${brandColors.primary}` }}
+            >
+              <Link to="/gallery" className="block w-full h-full">
+                <img 
+                  src="/GOMBE%20JUNIOR%20SCHOOL%20BOARDING.JPG" 
+                  alt="Gombe Junior School Boarding" 
+                  className="w-full h-full object-cover aspect-video transform group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
+                  <h3 className="text-white font-bold text-xl">Campus Life</h3>
                 </div>
-                <div className="text-4xl font-bold mb-2" style={{ color: brandColors.secondary }}>{stat.value}</div>
-                <div className="text-gray-600 font-medium">{stat.label}</div>
-              </motion.div>
-            ))}
+              </Link>
+            </motion.div>
+
+            {/* Video Column */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative rounded-3xl overflow-hidden shadow-2xl"
+              style={{ border: `4px solid ${brandColors.secondary}` }}
+            >
+              <video 
+                src="/GJS%20KAMPALA%20VIRTUAL%20TOUR.mp4" 
+                autoPlay 
+                loop 
+                muted 
+                playsInline
+                className="w-full h-full object-cover aspect-video"
+              />
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent pointer-events-none">
+                <h3 className="text-white font-bold text-xl">Virtual Tour</h3>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Wavy Divider */}
-      <div className="w-full" style={{ backgroundColor: '#FFF9F5', marginTop: '-1px' }}>
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full" style={{ height: '80px', display: 'block' }}>
-          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" style={{ fill: '#F0F9FF' }}></path>
-        </svg>
-      </div>
-
-      {/* Wavy Section Divider */}
-      <div className="relative w-full h-16">
-        <svg className="absolute top-0 w-full h-16" viewBox="0 0 1440 100" preserveAspectRatio="none">
-          <path d="M0,50 Q360,0 720,50 T1440,50 L1440,100 L0,100 Z" fill="#f9fafb"></path>
+      <div className="w-full" style={{ marginTop: '-1px', lineHeight: 0 }}>
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full" style={{ height: '100px', display: 'block' }}>
+          <path d="M0,0 C300,90 600,90 900,0 C1050,50 1150,50 1200,0 L1200,120 L0,120 Z" fill="#F0F9FF"></path>
         </svg>
       </div>
 
@@ -745,7 +693,7 @@ const GJSBoarding = () => {
                       <li key={fIndex} className="flex items-start text-gray-700">
                         <span className="w-6 h-6 rounded-full mr-3 flex items-center justify-center flex-shrink-0" 
                           style={{ backgroundColor: accentColors[index % 3] }}>
-                          <span className="text-white text-xs">✓</span>
+                          <span className="text-white text-xs">\u2713</span>
                         </span>
                         <span className="pt-0.5">{feature}</span>
                       </li>
@@ -786,7 +734,7 @@ const GJSBoarding = () => {
             <div className="flex flex-wrap justify-center gap-6 mb-12">
               <div className="flex items-center space-x-2">
                 <LuMapPin className="w-5 h-5" style={{ color: brandColors.primary }} />
-                <span>Gombe, Butambala District</span>
+                <span>Boarding, Kampala</span>
               </div>
               <div className="flex items-center space-x-2">
                 <LuPhone className="w-5 h-5" style={{ color: brandColors.primary }} />
@@ -813,6 +761,7 @@ const GJSBoarding = () => {
       <footer className="bg-[#800E13] text-white py-2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+            {/* About Section */}
             <div>
               <div className="flex items-center mb-4">
                 <img 
@@ -828,6 +777,8 @@ const GJSBoarding = () => {
                 Providing world-class international education with a focus on holistic development.
               </p>
             </div>
+
+            {/* Contact Information */}
             <div>
               <h4 className="text-lg font-semibold mb-4" style={{ color: brandColors.primary }}>Contact Us</h4>
               <div className="space-y-3">
@@ -845,32 +796,12 @@ const GJSBoarding = () => {
                 </div>
                 <div className="flex items-start space-x-3">
                   <LuMapPin className="w-5 h-5 mt-1 flex-shrink-0" />
-                  <span className="text-gray-200">Boarding Campus, Gombe, Butambala District</span>
+                  <span className="text-gray-200">Boarding Campus, Kampala</span>
                 </div>
               </div>
             </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4" style={{ color: brandColors.primary }}>Useful Links</h4>
-              <ul className="space-y-2">
-                {[
-                  { label: 'News', href: '#news' },
-                  { label: 'Events', href: '#events' },
-                  { label: 'Alumni', href: '#alumni' },
-                  { label: 'Facilities', href: '#facilities' },
-                  { label: 'Contact Us', href: '#contact' },
-                ].map((link) => (
-                  <li key={link.href}>
-                    <a
-                      href={link.href}
-                      className="text-gray-200 hover:text-[#FFD700] transition-colors duration-300 flex items-center group"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#FFD700] mr-2 opacity-70 group-hover:opacity-100 transition-opacity"></span>
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+
+            {/* Social Media */}
             <div>
               <h4 className="text-lg font-semibold mb-4" style={{ color: brandColors.primary }}>Follow Us</h4>
               <div className="flex space-x-4">
@@ -888,7 +819,32 @@ const GJSBoarding = () => {
                 </a>
               </div>
             </div>
+
+            {/* Useful Links */}
+            <div>
+              <h4 className="text-lg font-semibold mb-4" style={{ color: brandColors.primary }}>Useful Links</h4>
+              <ul className="space-y-2">
+                {[
+                  { label: 'News', href: '#news' },
+                  { label: 'Events', href: '#events' },
+                  { label: 'Alumni', href: '#alumni' },
+                  { label: 'Facilities', href: '#facilities' },
+                  { label: 'Contact Us', href: '#contact' },
+                ].map((link) => (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      className="text-gray-200 hover:text-[#FFD700] transition-colors duration-300 text-sm"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
+
+          {/* Bottom Bar */}
           <div className="border-t border-white/20 pt-3">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-gray-300 mb-4 md:mb-0">
