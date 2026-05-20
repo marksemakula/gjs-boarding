@@ -47,7 +47,7 @@ const GJSBoarding = () => {
         { label: 'Mission & Vision', href: '#mission' },
         { label: 'Core Values', href: '#core-values' },
         { label: 'Board of Governors', href: '#board' },
-        { label: "Principal's Message", href: '#principals-message' },
+        { label: "Principal's Message", href: '#principals-message', route: '/about/principals-message' },
         { label: 'Administration and Management Team', href: '#management' },
       ],
     },
